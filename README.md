@@ -50,9 +50,7 @@ dependencies {
 ##### Step 3. Create FloatingLayout
 ```java
 FloatingLayout floatingLayout = new FloatingLayout(this, R.layout.floating_layout, null);
-```
-##### Show FloatingLayout
-```java
 floatingLayout.create();
 ```
+
 
