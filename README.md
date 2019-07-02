@@ -1,3 +1,25 @@
 # floating-layout-android
 [![](https://jitpack.io/v/HamedTaherpour/floating-layout-android.svg)](https://jitpack.io/#HamedTaherpour/floating-layout-android)
-Description
+
+
+## Download
+```gradle
+allprojects {
+  repositories {
+    maven { url 'https://jitpack.io' }
+  }
+}
+  
+dependencies {
+  implementation 'com.github.HamedTaherpour:TestPlugin:0.1.1'
+}
+```
+
+## Usage
+```java
+  FloatingLayout floatingLayout = new FloatingLayout(this, R.layout.floating_layout, this);
+  if (!floatingLayout.isShow())
+    floatingLayout.create();
+```
+
+
