@@ -24,7 +24,7 @@ dependencies {
 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
 <application>
-	<service android:name=".FloatingLayoutService" />
+    <service android:name=".FloatingLayoutService" />
 </application>
 ```
 ### Layout.xml
