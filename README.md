@@ -1,4 +1,4 @@
-# floating-layout-android
+# Floating Layout Android
 [![](https://jitpack.io/v/HamedTaherpour/floating-layout-android.svg)](https://jitpack.io/#HamedTaherpour/floating-layout-android)
 
 ## Build
@@ -28,7 +28,7 @@ dependencies {
 </application>
 ```
 ### Layout.xml
-##### Step 2. Create layout and dont forget add id (root_container) like this
+##### Step 2. Create layout and don't forget add id (root_container) like this
 ```layout
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
