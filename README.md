@@ -4,15 +4,14 @@
 
 ## Download
 ```gradle
-allprojects {
-  repositories {
-    maven { url 'https://jitpack.io' }
-  }
-}
-  
-dependencies {
-  implementation 'com.github.HamedTaherpour:TestPlugin:0.1.1'
-}
+	allprojects {
+		repositories {
+			maven { url 'https://jitpack.io' }
+		}
+	}  
+	dependencies {
+    implementation 'com.github.HamedTaherpour:floating-layout-android:1.0.0'
+	}
 ```
 
 ## Usage
