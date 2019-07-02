@@ -30,6 +30,7 @@ public class FloatingLayoutService extends Service implements View.OnClickListen
     private Context mContext = null;
     private Handler mHandler = null;
     private Runnable mRunnable = null;
+    private ResultReceiver receiver = null;
 
     private View rootContainer;
     // IView
@@ -39,7 +40,6 @@ public class FloatingLayoutService extends Service implements View.OnClickListen
     int resource;
     private @IdRes
     int ROOT_CONTAINER_ID;
-    private ResultReceiver receiver;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -165,7 +165,8 @@ public class FloatingLayoutService extends Service implements View.OnClickListen
     }
 
     private void onClose() {
-        receiver.send(ACTION_ON_CLOSE, null);
+        if (receiver != null)
+            receiver.send(ACTION_ON_CLOSE, null);
     }
 
     @Override
