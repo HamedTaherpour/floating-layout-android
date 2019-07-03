@@ -1,5 +1,13 @@
-# Floating Layout Android
+# floating-layout-android
+Floating Layout for android platform
+
 [![](https://jitpack.io/v/HamedTaherpour/floating-layout-android.svg)](https://jitpack.io/#HamedTaherpour/floating-layout-android)
+
+## GIF
+<div style="dispaly:flex">
+    <img src="/sample1.gif" width="24%">
+    <img src="/sample2.gif" width="24%">
+</div>
 
 ## Build
 ##### Step 1. Add the JitPack repository to your build file
@@ -24,7 +32,7 @@ dependencies {
 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
 <application>
-    <service android:name=".FloatingLayoutService" />
+    <service android:name="com.hamedtaherpour.floatinglayout.FloatingLayoutService" />
 </application>
 ```
 ### Layout.xml
@@ -49,8 +57,20 @@ dependencies {
 ### Java
 ##### Step 3. Create FloatingLayout
 ```java
-FloatingLayout floatingLayout = new FloatingLayout(this, R.layout.floating_layout, null);
+FloatingLayout floatingLayout = new FloatingLayout(this, R.layout.floating_layout, new FloatingLayout.CallBack() {
+    @Override
+    public void onClickListener(int resourceId) {
+    
+    }
+
+    @Override
+    public void onCreateListener(View view) {
+    }
+    
+    @Override
+    public void onCloseListener() {
+    
+    }
+});
 floatingLayout.create();
 ```
-
-
