@@ -3,7 +3,7 @@ Floating Layout for android platform
 
 [![](https://jitpack.io/v/HamedTaherpour/floating-layout-android.svg)](https://jitpack.io/#HamedTaherpour/floating-layout-android)
 
-## GIF
+## Demo
 <div style="dispaly:flex">
     <img src="/sample1.gif" width="24%">
     <img src="/sample2.gif" width="24%">
@@ -73,4 +73,16 @@ FloatingLayout floatingLayout = new FloatingLayout(this, R.layout.floating_layou
     }
 });
 floatingLayout.create();
+```
+For handle on click you need add tag (Click)
+```xml
+    android:tag="Click"
+```
+Somting like this
+```xml
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:tag="Click" />
 ```
