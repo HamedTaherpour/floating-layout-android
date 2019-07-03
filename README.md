@@ -10,7 +10,7 @@ Floating Layout for android platform
     <img src="/sample2.gif" width="24%">
 </div>
 
-##### Example project [Floating Video Player](https://github.com/HamedTaherpour/floating-video-player-android)
+##### Example project [floating-video-player-android](https://github.com/HamedTaherpour/floating-video-player-android)
 
 ## Build
 ##### Step 1. Add the JitPack repository to your build file
