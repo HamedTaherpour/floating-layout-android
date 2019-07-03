@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class FloatingLayout implements FloatingLayoutPresenter.IView {
 
     public interface CallBack extends Serializable {
-        void onClickListener(int resource);
+        void onClickListener(int resourceId);
 
         void onCreateListener(View view);
 

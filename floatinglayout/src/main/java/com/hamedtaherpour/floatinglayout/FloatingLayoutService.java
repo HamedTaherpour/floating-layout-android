@@ -156,8 +156,11 @@ public class FloatingLayoutService extends Service implements View.OnClickListen
             for (int idx = 0; idx < group.getChildCount(); idx++) {
                 setOnClickToView(group.getChildAt(idx));
             }
-        } else if (("Click").equals(view.getTag()))
-            view.setOnClickListener(this);
+        } else if (view.getTag() instanceof String) {
+            String tag = view.getTag().toString().toLowerCase();
+            if (("click").equals(tag))
+                view.setOnClickListener(this);
+        }
     }
 
     private void onDestroyView() {

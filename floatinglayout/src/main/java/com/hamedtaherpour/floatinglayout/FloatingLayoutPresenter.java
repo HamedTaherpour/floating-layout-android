@@ -65,7 +65,7 @@ public class FloatingLayoutPresenter {
     }
 
     public interface IView {
-        void onClickListener(int resource);
+        void onClickListener(int resourceId);
 
         void onCreateListener(View view);
 
