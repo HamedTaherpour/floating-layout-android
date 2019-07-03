@@ -76,13 +76,13 @@ floatingLayout.create();
 ```
 For handle on click you need add tag (Click)
 ```xml
-    android:tag="Click"
+android:tag="Click"
 ```
 Somting like this
 ```xml
-    <Button
-        android:id="@+id/btn_close"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:tag="Click" />
+<Button
+    android:id="@+id/btn_close"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:tag="Click" />
 ```
