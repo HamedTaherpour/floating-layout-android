@@ -24,7 +24,7 @@ allprojects {
 ##### Step 2. Add the dependency
 ```build
 dependencies {
-    implementation 'com.github.HamedTaherpour:floating-layout-android:1.0.1'
+    implementation 'com.github.HamedTaherpour:floating-layout-android:1.0.2'
 }
 ```
 
