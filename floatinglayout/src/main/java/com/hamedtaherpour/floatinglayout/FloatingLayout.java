@@ -4,12 +4,10 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
-import java.io.Serializable;
-
 
 public class FloatingLayout implements FloatingLayoutPresenter.IView {
 
-    public interface CallBack extends Serializable {
+    public interface CallBack {
         void onClickListener(int resourceId);
 
         void onCreateListener(View view);
@@ -23,8 +21,12 @@ public class FloatingLayout implements FloatingLayoutPresenter.IView {
 
     public FloatingLayout(Context mContext, @LayoutRes int resource, CallBack callBack) {
         this.callBack = callBack;
+        presenter = new FloatingLayoutPresenter(mContext, callBack, resource, this, null);
+    }
 
-        presenter = new FloatingLayoutPresenter(mContext, callBack, resource, this);
+    public FloatingLayout(Context mContext, @LayoutRes int resource, FLGravity flGravity, CallBack callBack) {
+        this.callBack = callBack;
+        presenter = new FloatingLayoutPresenter(mContext, callBack, resource, this, flGravity);
     }
 
     public void create() {

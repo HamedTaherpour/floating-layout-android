@@ -16,12 +16,14 @@ public class FloatingLayoutPresenter {
     public @LayoutRes
     int resource;
     private IView mView;
+    private FLGravity flGravity;
 
-    public FloatingLayoutPresenter(Context mContext, FloatingLayout.CallBack callBack, int resource, IView mView) {
+    public FloatingLayoutPresenter(Context mContext, FloatingLayout.CallBack callBack, int resource, IView mView,FLGravity flGravity) {
         this.mContext = checkNull("Context can not be null", mContext);
         this.callBack = callBack;
         this.resource = resource;
         this.mView = mView;
+        this.flGravity = flGravity;
     }
 
     public void onCreate() {
@@ -29,6 +31,9 @@ public class FloatingLayoutPresenter {
         intent.putExtra(FloatingLayoutService.LAYOUT_RESOURCE, resource);
         if (callBack != null)
             intent.putExtra(FloatingLayoutService.RECEIVER, new DownloadReceiver(new Handler()));
+        if (flGravity != null)
+            intent.putExtra(FloatingLayoutService.FL_GRAVITY, flGravity);
+
         mContext.startService(intent);
     }
 

@@ -22,6 +22,7 @@ public class FloatingLayoutService extends Service implements View.OnClickListen
 
     public static final String LAYOUT_RESOURCE = "layout-resource";
     public static final String RECEIVER = "receiver";
+    public static final String FL_GRAVITY = "flgravity";
     public static final int ACTION_ON_CLICK = 3265;
     public static final int ACTION_ON_CREATE = 5874;
     public static final int ACTION_ON_CLOSE = 3625;
@@ -40,6 +41,7 @@ public class FloatingLayoutService extends Service implements View.OnClickListen
     int resource;
     private @IdRes
     int ROOT_CONTAINER_ID;
+    private FLGravity flGravity;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -60,6 +62,7 @@ public class FloatingLayoutService extends Service implements View.OnClickListen
         super.onStart(intent, startId);
         resource = intent.getIntExtra(LAYOUT_RESOURCE, 0);
         receiver = (ResultReceiver) intent.getParcelableExtra(RECEIVER);
+        flGravity = (FLGravity) intent.getSerializableExtra(FL_GRAVITY);
 
         onDestroyView();
         createView();
@@ -98,17 +101,11 @@ public class FloatingLayoutService extends Service implements View.OnClickListen
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
-        params.gravity = Gravity.TOP | Gravity.LEFT;
-        params.x = 0;
-        params.y = 100;
-
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mFloatingView = layoutInflater.inflate(resource, null);
-
-        params.gravity = Gravity.CENTER | Gravity.CENTER;
-        params.x = 0;
-        params.y = 0;
+        if (flGravity != null)
+            setGravity(params);
         mWindowManager.addView(mFloatingView, params);
 
         rootContainer = mFloatingView.findViewById(ROOT_CONTAINER_ID);
@@ -148,6 +145,12 @@ public class FloatingLayoutService extends Service implements View.OnClickListen
         }
 
         receiver.send(ACTION_ON_CREATE, null);
+    }
+
+    private void setGravity(WindowManager.LayoutParams params) {
+        params.gravity = flGravity.getGravity();
+        params.x = flGravity.getX();
+        params.y = flGravity.getY();
     }
 
     private void setOnClickToView(View view) {
