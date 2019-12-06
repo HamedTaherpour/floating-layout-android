@@ -35,7 +35,7 @@ dependencies {
 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
 <application>
-    <service android:name="com.hamedtaherpour.floatinglayout.FloatingLayoutService" />
+    <service android:name="io.hamed.floatinglayout.FloatingLayoutService" />
 </application>
 ```
 ### Layout.xml
