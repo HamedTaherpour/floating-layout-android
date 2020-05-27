@@ -27,9 +27,8 @@ class FloatingLayout(
     override fun onCreate() {
         val intent = Intent(mContext, FloatingLayoutService::class.java)
         intent.putExtra(FloatingLayoutService.LAYOUT_RESOURCE, mResource)
-        if (callBack != null)
-            intent.putExtra(FloatingLayoutService.RECEIVER, ServiceReceiver(Handler(), callBack))
-
+        intent.putExtra(FloatingLayoutService.RECEIVER, ServiceReceiver(Handler(), callBack))
+        // starting the service
         mContext.startService(intent)
     }
 

@@ -16,14 +16,14 @@ class ServiceReceiver(handler: Handler?, callBack: CallBack?) : ResultReceiver(h
 
     override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
         super.onReceiveResult(resultCode, resultData)
-        if (resultCode === FloatingLayoutService.ACTION_ON_CLICK) {
+        if (resultCode == FloatingLayoutService.ACTION_ON_CLICK) {
             val resource = resultData.getInt(FloatingLayoutService.ID)
             callBack?.onClickListener(resource)
         }
-        if (resultCode === FloatingLayoutService.ACTION_ON_CREATE) {
+        if (resultCode == FloatingLayoutService.ACTION_ON_CREATE) {
             callBack?.onCreateListener(FloatingLayoutService.mFloatingView)
         }
-        if (resultCode === FloatingLayoutService.ACTION_ON_CLOSE) {
+        if (resultCode == FloatingLayoutService.ACTION_ON_CLOSE) {
             callBack?.onCloseListener()
         }
     }

@@ -1,5 +1,6 @@
 package io.hamed.floatinglayout
 
+import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -9,6 +10,7 @@ import android.view.*
 import android.view.View.OnTouchListener
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import java.util.*
 
 
 /**
@@ -51,15 +53,14 @@ class FloatingLayoutService : Service(), View.OnClickListener {
         ROOT_CONTAINER_ID = resources.getIdentifier("root_container", "id", packageName)
     }
 
-    override fun onStart(intent: Intent?, startId: Int) {
-        super.onStart(intent, startId)
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null) {
             mResource = intent.getIntExtra(LAYOUT_RESOURCE, 0)
             mReceiver = intent.getParcelableExtra(RECEIVER) as? ResultReceiver
-
             onDestroyView()
             createView()
         }
+        return START_STICKY_COMPATIBILITY
     }
 
     override fun onDestroy() {
@@ -74,16 +75,11 @@ class FloatingLayoutService : Service(), View.OnClickListener {
 
     private fun createView() {
         val params: WindowManager.LayoutParams
-        var windowType = WindowManager.LayoutParams.TYPE_PHONE
         // Set to TYPE_SYSTEM_ALERT so that the Service can display it
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            windowType = WindowManager.LayoutParams.TYPE_TOAST
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            windowType = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            windowType = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
+        val windowType: Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else {
+            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
         }
         params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -102,6 +98,7 @@ class FloatingLayoutService : Service(), View.OnClickListener {
         mReceiver?.send(ACTION_ON_CREATE, resultData)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setMoveView(params: WindowManager.LayoutParams) {
         if (mRootContainer != null) { // get position for moving
             mRootContainer?.setOnTouchListener(object : OnTouchListener {
@@ -142,7 +139,7 @@ class FloatingLayoutService : Service(), View.OnClickListener {
                 setOnClickToView(view.getChildAt(idx))
             }
         } else if (view.tag is String) {
-            val tag = view.tag.toString().toLowerCase()
+            val tag = view.tag.toString().toLowerCase(Locale.getDefault())
             if ("click" == tag) view.setOnClickListener(this)
         }
     }
