@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/root_container"
+        android:layout_width="280dp"
+        android:layout_height="290dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimaryDark">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@drawable/vec_icon" />
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorRed"
+            android:text="close"
+            android:textColor="@color/colorWhite" />
+
+    </FrameLayout>
+
+</FrameLayout>

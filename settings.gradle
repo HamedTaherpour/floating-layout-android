@@ -1,0 +1,3 @@
+include ':floatinglayout'
+include ':app'
+rootProject.name = "floating-layout-android"
