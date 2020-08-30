@@ -63,18 +63,12 @@ dependencies {
 private FloatingCallBack floatingCallBack = new FloatingCallBack() {
     @Override
     public void onCreateListener(View view) {
-        Button btn = view.findViewById(R.id.btn_close);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                floatingLayout.close();
-            }
-        });
+
     }
 
     @Override
     public void onCloseListener() {
-        Toast.makeText(getApplicationContext(), "Close", Toast.LENGTH_SHORT).show();
+
     }
 };
 
