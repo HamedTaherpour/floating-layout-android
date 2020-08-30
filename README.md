@@ -35,7 +35,7 @@ dependencies {
 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
 <application>
-    <service android:name="io.hamed.floatinglayout.FloatingLayoutService" />
+    <service android:name="io.hamed.floatinglayout.service.FloatingService"/>
 </application>
 ```
 ### Layout.xml
@@ -60,34 +60,26 @@ dependencies {
 ### Java
 ##### Step 3. Create FloatingLayout
 ```java
-FloatingLayout floatingLayout = new FloatingLayout(this, R.layout.floating_layout, new FloatingLayout.CallBack() {
+private FloatingCallBack floatingCallBack = new FloatingCallBack() {
     @Override
-    public void onClickListener(int resourceId) {
-    
+    public void onCreateListener(View view) {
+        Button btn = view.findViewById(R.id.btn_close);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingLayout.close();
+            }
+        });
     }
 
     @Override
-    public void onCreateListener(View view) {
-    }
-    
-    @Override
     public void onCloseListener() {
-    
+        Toast.makeText(getApplicationContext(), "Close", Toast.LENGTH_SHORT).show();
     }
-});
+};
+
+floatingLayout = new FloatingLayout(this, R.layout.sample_layout, floatingCallBack);
 floatingLayout.create();
-```
-For handle on click you need add tag (Click)
-```xml
-android:tag="Click"
-```
-Somting like this
-```xml
-<Button
-    android:id="@+id/btn_close"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:tag="Click" />
 ```
 
 ## License
