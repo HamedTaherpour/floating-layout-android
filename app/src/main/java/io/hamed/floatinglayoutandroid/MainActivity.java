@@ -11,20 +11,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import io.hamed.floatinglayout.callback.FloatingCallBack;
+import io.hamed.floatinglayout.callback.FloatingListener;
 import io.hamed.floatinglayout.FloatingLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     private FloatingLayout floatingLayout;
-    private FloatingCallBack floatingCallBack = new FloatingCallBack() {
+    private FloatingListener floatingListener = new FloatingListener() {
         @Override
         public void onCreateListener(View view) {
             Button btn = view.findViewById(R.id.btn_close);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    floatingLayout.close();
+                    floatingLayout.destroy();
                 }
             });
         }
@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFloating() {
-        floatingLayout = new FloatingLayout(this, R.layout.sample_layout, floatingCallBack);
+        floatingLayout = new FloatingLayout(this, R.layout.sample_layout);
+        floatingLayout.setFloatingListener(floatingListener);
         floatingLayout.create();
     }
 }
