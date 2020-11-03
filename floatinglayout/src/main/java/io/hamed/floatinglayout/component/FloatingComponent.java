@@ -17,8 +17,8 @@ import io.hamed.floatinglayout.module.FloatingWindowModule;
  */
 public class FloatingComponent {
 
-    public static final int ACTION_ON_CREATE = 0x12;
-    public static final int ACTION_ON_CLOSE = 0x11;
+    public static final int ACTION_ON_CREATE =  0x0002;
+    public static final int ACTION_ON_CLOSE =   0x00001;
 
     private int layoutRes;
     private Context context;
@@ -26,23 +26,32 @@ public class FloatingComponent {
     private FloatingWindowModule floatingWindowModule;
     private FloatingViewMovementModule floatingViewMovementModule;
 
-    public FloatingComponent(int layoutRes, Context context, ResultReceiver receiver) {
+    public FloatingComponent(int layoutRes, Context context) {
         this.layoutRes = layoutRes;
         this.context = context;
-        this.receiver = receiver;
     }
 
     public void setUp() {
-        int ROOT_CONTAINER_ID = context.getResources().getIdentifier("root_container", "id", context.getPackageName());
+        int ROOT_CONTAINER_ID = getViewRootId();
+
         floatingWindowModule = new FloatingWindowModule(context, layoutRes);
         floatingWindowModule.create();
-        View floatingView = floatingWindowModule.getBaseView();
+
+        View floatingView = floatingWindowModule.getView();
         View rootContainer = floatingView.findViewById(ROOT_CONTAINER_ID);
+
         floatingViewMovementModule = new FloatingViewMovementModule(floatingWindowModule.getParams(), rootContainer, floatingWindowModule.getWindowManager(), floatingView);
         floatingViewMovementModule.run();
-//        setOnClickToView(rootContainer);
 
         sendAction(ACTION_ON_CREATE, new Bundle());
+    }
+
+    public void setReceiver(ResultReceiver receiver) {
+        this.receiver = receiver;
+    }
+
+    public int getViewRootId(){
+        return context.getResources().getIdentifier("root_container", "id", context.getPackageName());
     }
 
     public FloatingWindowModule getFloatingWindowModule() {
@@ -50,7 +59,8 @@ public class FloatingComponent {
     }
 
     private void sendAction(int action, Bundle bundle) {
-        receiver.send(action, bundle);
+        if (receiver != null)
+            receiver.send(action, bundle);
     }
 
     public void destroy() {

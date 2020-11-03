@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 
-import io.hamed.floatinglayout.callback.FloatingCallBack;
+import io.hamed.floatinglayout.callback.FloatingListener;
 import io.hamed.floatinglayout.component.FloatingComponent;
 import io.hamed.floatinglayout.service.FloatingService;
 
@@ -17,20 +17,23 @@ import io.hamed.floatinglayout.service.FloatingService;
  */
 public class FloatingResult extends ResultReceiver {
 
-    private FloatingCallBack floatingCallBack;
+    private FloatingListener floatingListener;
 
-    public FloatingResult(Handler handler, FloatingCallBack floatingCallBack) {
+    public FloatingResult(Handler handler, FloatingListener floatingListener) {
         super(handler);
-        this.floatingCallBack = floatingCallBack;
+        this.floatingListener = floatingListener;
     }
 
     @Override
     protected void onReceiveResult(int resultCode, Bundle resultData) {
-        if (resultCode == FloatingComponent.ACTION_ON_CREATE) {
-            floatingCallBack.onCreateListener(FloatingService.baseView);
-        }
-        if (resultCode == FloatingComponent.ACTION_ON_CLOSE) {
-            floatingCallBack.onCloseListener();
+        if (floatingListener != null) {
+            if (resultCode == FloatingComponent.ACTION_ON_CREATE) {
+                if (FloatingService.view != null)
+                    floatingListener.onCreateListener(FloatingService.view);
+            }
+            if (resultCode == FloatingComponent.ACTION_ON_CLOSE) {
+                floatingListener.onCloseListener();
+            }
         }
         super.onReceiveResult(resultCode, resultData);
     }

@@ -23,8 +23,8 @@ public class FloatingService extends Service {
     public static final String EXTRA_RECEIVER = "extra_receiver";
 
     private FloatingComponent floatingComponent;
-    // TODO: plz help me
-    public static View baseView;
+    // TODO: Memory leak
+    public static View view;
 
     @Nullable
     @Override
@@ -38,16 +38,20 @@ public class FloatingService extends Service {
             int layoutRes = intent.getIntExtra(EXTRA_LAYOUT_RESOURCE, -1);
             ResultReceiver receiver = intent.getParcelableExtra(EXTRA_RECEIVER);
 
-            floatingComponent = new FloatingComponent(layoutRes, this, receiver);
+            floatingComponent = new FloatingComponent(layoutRes, this);
+            if (receiver != null)
+                floatingComponent.setReceiver(receiver);
             floatingComponent.setUp();
-            baseView = floatingComponent.getFloatingWindowModule().getBaseView();
+
+            view = floatingComponent.getFloatingWindowModule().getView();
         }
         return START_STICKY_COMPATIBILITY;
     }
 
     @Override
     public void onDestroy() {
-        floatingComponent.destroy();
+        if (floatingComponent != null)
+            floatingComponent.destroy();
         super.onDestroy();
     }
 

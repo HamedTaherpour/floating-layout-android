@@ -9,7 +9,7 @@ import android.view.View;
  * *
  * Address: https://github.com/HamedTaherpour
  */
-public interface FloatingCallBack {
+public interface FloatingListener {
 
     void onCreateListener(View view);
 

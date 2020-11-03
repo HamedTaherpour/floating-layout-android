@@ -3,7 +3,6 @@ package io.hamed.floatinglayout.module;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Build;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -22,7 +21,7 @@ public class FloatingWindowModule {
     private Context context;
 
     private WindowManager.LayoutParams params;
-    private View baseView;
+    private View view;
     private WindowManager windowManager;
 
     public FloatingWindowModule(Context context, @LayoutRes int layoutRes) {
@@ -31,29 +30,31 @@ public class FloatingWindowModule {
     }
 
     public void create() {
-        // Set to TYPE_SYSTEM_ALERT so that the Service can display it
-        int windowType = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-
-        params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                windowType,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT
-        );
-
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        baseView = View.inflate(context, layoutRes, null);
-        windowManager.addView(baseView, params);
+        windowManager.addView(getView(), getParams());
     }
 
     public WindowManager.LayoutParams getParams() {
+        if (params == null)
+            params = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    getWindowType(),
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT
+            );
         return params;
     }
 
-    public View getBaseView() {
-        return baseView;
+    public View getView() {
+        if (view == null)
+            view = View.inflate(context, layoutRes, null);
+        return view;
+    }
+
+    public int getWindowType() {
+        // Set to TYPE_SYSTEM_ALERT so that the Service can display it
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
     }
 
     public WindowManager getWindowManager() {
@@ -63,13 +64,13 @@ public class FloatingWindowModule {
     public void destroy() {
         try {
             if (windowManager != null)
-                if (baseView != null)
-                    windowManager.removeViewImmediate(baseView);
+                if (view != null)
+                    windowManager.removeViewImmediate(view);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } finally {
             params = null;
-            baseView = null;
+            view = null;
             windowManager = null;
         }
     }
