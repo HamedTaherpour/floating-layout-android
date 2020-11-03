@@ -60,7 +60,7 @@ dependencies {
 ### Java
 ##### Step 3. Create FloatingLayout
 ```java
-private FloatingCallBack floatingCallBack = new FloatingCallBack() {
+private FloatingListener floatingListener = new FloatingListener() {
     @Override
     public void onCreateListener(View view) {
 
@@ -72,7 +72,8 @@ private FloatingCallBack floatingCallBack = new FloatingCallBack() {
     }
 };
 
-floatingLayout = new FloatingLayout(this, R.layout.sample_layout, floatingCallBack);
+floatingLayout = new FloatingLayout(this, R.layout.sample_layout);
+floatingLayout.setFloatingListener(floatingListener);
 floatingLayout.create();
 ```
 
