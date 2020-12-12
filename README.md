@@ -2,7 +2,7 @@
 Floating Layout for android platform
 
 [![](https://jitpack.io/v/HamedTaherpour/floating-layout-android.svg)](https://jitpack.io/#HamedTaherpour/floating-layout-android)
-
+[![Download](https://img.shields.io/badge/Android%20Arsenal-Floating%20Layout-red.svg)](https://android-arsenal.com/details/1/8202)
 
 ## Demo
 <div style="dispaly:flex">
